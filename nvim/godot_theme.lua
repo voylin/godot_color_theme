@@ -143,6 +143,14 @@ function M.setup(opts)
 	hl(0, "DiagnosticInfo", { fg = palette.symbol })
 	hl(0, "DiagnosticHint", { fg = palette.comment })
 
+	-- Markdown
+	hl(0, "markdownH1", { fg = palette.function_def, bold = true })
+	hl(0, "markdownH2", { fg = palette.function_call, bold = true })
+	hl(0, "markdownH3", { fg = palette.base_type })
+	hl(0, "markdownH4", { fg = palette.member_var })
+	hl(0, "markdownH5", { fg = palette.symbol })
+	hl(0, "markdownH6", { fg = palette.comment })
+
 	-- TreeSitter Specifics (Mapped to match GDScript Highlighting)
 	-- - Keywords
 	hl(0, "@keyword", { fg = palette.keyword })
@@ -193,6 +201,32 @@ function M.setup(opts)
 	hl(0, "@punctuation.special", { fg = palette.symbol })
 
 	hl(0, "@operator", { fg = palette.symbol })
+
+	-- Markdown
+	hl(0, "@markup.heading.1", { fg = palette.function_def, bold = true })
+	hl(0, "@markup.heading.2", { fg = palette.function_call, bold = true })
+	hl(0, "@markup.heading.3", { fg = palette.base_type })
+	hl(0, "@markup.heading.4", { fg = palette.member_var })
+	hl(0, "@markup.heading.5", { fg = palette.symbol })
+	hl(0, "@markup.heading.6", { fg = palette.comment })
+
+	hl(0, "@markup.italic", { italic = true })
+	hl(0, "@markup.strong", { bold = true })
+	hl(0, "@markup.strikethrough", { strikethrough = true })
+
+	hl(0, "@markup.raw", { fg = palette.string })
+	hl(0, "@markup.raw.block", { fg = palette.string })
+
+	hl(0, "@markup.link", { fg = palette.function_call, underline = true })
+	hl(0, "@markup.link.label", { fg = palette.function_call })
+	hl(0, "@markup.link.url", { fg = palette.comment, underline = true })
+
+	hl(0, "@markup.list", { fg = palette.symbol })
+	hl(0, "@markup.list.checked", { fg = palette.base_type })
+	hl(0, "@markup.list.unchecked", { fg = palette.comment })
+
+	hl(0, "@markup.quote", { fg = palette.comment, italic = true })
+	hl(0, "@markup.hr", { fg = palette.symbol })
 
 end
 
