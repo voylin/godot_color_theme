@@ -1,5 +1,11 @@
 import sys
 
+DEFAULT_MODERN_BASE_COLOR = "#292929"
+DEFAULT_MODERN_ACCENT_COLOR = "#569eff"
+
+DEFAULT_CLASSIC_BASE_COLOR = "#363d4a"
+DEFAULT_CLASSIC_ACCENT_COLOR = "#70bafa"
+
 
 def hex_to_rgb(hex_str):
     hex_str = hex_str.lstrip('#')
@@ -33,13 +39,17 @@ def main():
     print("--- Godot Theme Generator for Alacritty ---")
 
     # Getting User Input
-    base_color_in = input("Enter base color [default: #363d4a]: ").strip()
-    base_color = base_color_in if base_color_in else "#363d4a"
+    is_modern = input("Do you want to use the modern 4.6+ theme? (Yes, No): ").strip().lower() not in ["n", "no"]
+    
+    default_base_color = DEFAULT_MODERN_BASE_COLOR if is_modern else DEFAULT_CLASSIC_BASE_COLOR
+    base_color_in = input(f"Enter base color [default: {default_base_color}]: ").strip()
+    base_color = base_color_in if base_color_in else default_base_color
 
-    accent_color_in = input("Enter accent color [default: #70bafa]: ").strip()
-    accent_color = accent_color_in if accent_color_in else "#70bafa"
+    default_accent_color = DEFAULT_MODERN_ACCENT_COLOR if is_modern else DEFAULT_CLASSIC_ACCENT_COLOR
+    accent_color_in = input(f"Enter accent color [default: {default_accent_color}]: ").strip()
+    accent_color = accent_color_in if accent_color_in else default_accent_color
 
-    contrast_in = input("Enter contrast (0.0 - 1.0) [default: 0.3]: ").strip()
+    contrast_in = input("Enter contrast [default: 0.3]: ").strip()
     try: contrast = float(contrast_in) if contrast_in else 0.3
     except ValueError:
         print("Invalid contrast number, using 0.3")
