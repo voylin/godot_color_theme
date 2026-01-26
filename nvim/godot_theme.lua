@@ -228,6 +228,12 @@ function M.setup(opts)
 	hl(0, "@markup.quote", { fg = palette.comment, italic = true })
 	hl(0, "@markup.hr", { fg = palette.symbol })
 
+	-- Comments
+	hl(0, "@comment.todo", { fg = palette.warning, bold = true })
+	hl(0, "@comment.note", { fg = palette.symbol })
+	hl(0, "@comment.warning", { fg = palette.warning })
+	hl(0, "@comment.error", { fg = palette.error })
+
 end
 
 return M
