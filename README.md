@@ -1,4 +1,6 @@
 # Godot Color Theme
+![Screenshot of the Godot color theme script in action inside of NeoVim](screenshots/godot_01.png)
+
 This project provides a unified, dynamic color theme for **NeoVim** and **Alacritty** based on the default Godot Engine text editor colors. 
 
 It replicates the internal logic of the Godot source code (`EditorThemeManager.cpp`) to calculate background dimming, syntax highlighting, and UI element colors based on three user-definable variables: **Base Color**, **Accent Color**, and **Contrast**.
