@@ -1,3 +1,4 @@
+-- Godot Engine Default Theme for NeoVim (from editor_theme_manager.cpp)
 -- Generated based on Godot 4.x TextEditor source code logic
 -- https://github.com/voylin/godot_color_theme
 --
@@ -134,6 +135,14 @@ function M.setup(opts)
 	hl(0, "Type", { fg = palette.base_type })
 	hl(0, "Constant", { fg = palette.member_var })
 
+	hl(0, "Delimiter", { fg = palette.symbol })
+
+	-- Diagnostics
+	hl(0, "DiagnosticError", { fg = palette.error })
+	hl(0, "DiagnosticWarn", { fg = palette.warning })
+	hl(0, "DiagnosticInfo", { fg = palette.symbol })
+	hl(0, "DiagnosticHint", { fg = palette.comment })
+
 	-- TreeSitter Specifics (Mapped to match GDScript Highlighting)
 	-- - Keywords
 	hl(0, "@keyword", { fg = palette.keyword })
@@ -155,8 +164,12 @@ function M.setup(opts)
 	-- - Variables / Properties
 	hl(0, "@variable", { fg = palette.fg })
 	hl(0, "@variable.member", { fg = palette.member_var })
+	hl(0, "@variable.special", { fg = palette.symbol })
+	hl(0, "@variable.parameter", { fg = palette.member_var })
+
 	hl(0, "@property", { fg = palette.member_var })
-	hl(0, "@variable.parameter", { fg = palette.fg })
+	hl(0, "@constant", { fg = palette.member_var })
+	hl(0, "@constant.builtin", { fg = palette.keyword })
 
 	-- Types
 	hl(0, "@type", { fg = palette.user_type })
@@ -166,24 +179,21 @@ function M.setup(opts)
 	-- Literals
 	hl(0, "@string", { fg = palette.string })
 	hl(0, "@number", { fg = palette.number })
+	hl(0, "@boolean", { fg = palette.keyword })
 
 	-- GDScript Specifics
-	hl(0, "@string.special.symbol", { fg = palette.gd_node_path })
+	hl(0, "@string.escape", { fg = palette.gd_annotation })
+	hl(0, "@string.special", { fg = palette.gd_node_path })
 	hl(0, "@attribute", { fg = palette.gd_annotation })
 
 	-- Punctuation / Symbols (brackets, commas, etc.)
-	hl(0, "@punctuation",        { fg = palette.symbol })
-	hl(0, "@punctuation.bracket",{ fg = palette.symbol })
-	hl(0, "@punctuation.delimiter",{ fg = palette.symbol })
-	hl(0, "@punctuation.special",{ fg = palette.symbol })
+	hl(0, "@punctuation", { fg = palette.symbol })
+	hl(0, "@punctuation.bracket", { fg = palette.symbol })
+	hl(0, "@punctuation.delimiter", { fg = palette.symbol })
+	hl(0, "@punctuation.special", { fg = palette.symbol })
 
-	hl(0, "Delimiter", { fg = palette.symbol })
+	hl(0, "@operator", { fg = palette.symbol })
 
-	-- Diagnostics
-	hl(0, "DiagnosticError", { fg = palette.error })
-	hl(0, "DiagnosticWarn", { fg = palette.warning })
-	hl(0, "DiagnosticInfo", { fg = palette.symbol })
-	hl(0, "DiagnosticHint", { fg = palette.comment })
 end
 
 return M
