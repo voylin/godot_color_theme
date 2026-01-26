@@ -234,6 +234,15 @@ function M.setup(opts)
 	hl(0, "@comment.warning", { fg = palette.warning })
 	hl(0, "@comment.error", { fg = palette.error })
 
+	-- Other languages
+	hl(0, "@label", { fg = palette.symbol })
+	hl(0, "@field", { fg = palette.member_var })
+	hl(0, "@macro", { fg = palette.gd_annotation })
+	hl(0, "@module", { fg = palette.user_type })
+	hl(0, "@namespace", { fg = palette.user_type })
+
+	hl(0, "@type.definition", { fg = palette.user_type })
+	hl(0, "@type.qualifier", { fg = palette.keyword })
 end
 
 return M
