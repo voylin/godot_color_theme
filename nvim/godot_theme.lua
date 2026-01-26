@@ -171,6 +171,14 @@ function M.setup(opts)
 	hl(0, "@string.special.symbol", { fg = palette.gd_node_path })
 	hl(0, "@attribute", { fg = palette.gd_annotation })
 
+	-- Punctuation / Symbols (brackets, commas, etc.)
+	hl(0, "@punctuation",        { fg = palette.symbol })
+	hl(0, "@punctuation.bracket",{ fg = palette.symbol })
+	hl(0, "@punctuation.delimiter",{ fg = palette.symbol })
+	hl(0, "@punctuation.special",{ fg = palette.symbol })
+
+	hl(0, "Delimiter", { fg = palette.symbol })
+
 	-- Diagnostics
 	hl(0, "DiagnosticError", { fg = palette.error })
 	hl(0, "DiagnosticWarn", { fg = palette.warning })
