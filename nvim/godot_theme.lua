@@ -1,5 +1,5 @@
--- Godot Engine Default Theme for NeoVim
 -- Generated based on Godot 4.x TextEditor source code logic
+-- https://github.com/voylin/godot_color_theme
 --
 -- Options:
 -- is_modern (true)
@@ -21,6 +21,20 @@ local function rgb_to_hex(r, g, b)
 		math.min(255, math.max(0, b)))
 end
 
+local function darkened(hex, amount)
+	local r, g, b = hex_to_rgb(hex)
+	local f = 1.0 - amount
+	return rgb_to_hex(r * f, g * f, b * f)
+end
+
+local function lightened(hex, amount)
+	local r, g, b = hex_to_rgb(hex)
+	return rgb_to_hex(
+		r + (1.0 - r) * amount,
+		g + (1.0 - g) * amount,
+		b + (1.0 - b) * amount
+	)
+end
 
 local function lerp_color(hex_a, hex_b, t)
 	local r1, g1, b1 = hex_to_rgb(hex_a)
@@ -34,11 +48,6 @@ local function lerp_color(hex_a, hex_b, t)
 end
 
 
-local function blend(fg_hex, bg_hex, alpha)
-	return lerp_color(bg_hex, fg_hex, alpha)
-end
-
-
 function M.setup(opts)
 	opts = opts or {}
 
@@ -46,7 +55,8 @@ function M.setup(opts)
 
 	local defaults = {
 		modern = { base = "#292929", accent = "#569eff", font = "#e0e0e0" },
-		classic = { base = "#363d4a", accent = "#70bafa", font = "#e0e0e0" }}
+		classic = { base = "#363d4a", accent = "#70bafa", font = "#e0e0e0" }
+	}
 
 	local style_key = is_modern and "modern" or "classic"
 	local default = defaults[style_key]
@@ -56,38 +66,40 @@ function M.setup(opts)
 	local font_color = opts.font_color or default.font
 	local contrast = opts.contrast or 0.3
 
-	local mono_color = "#ffffff"
-	local error_color = "#ff6666"
-	local warning_color = "#ffdd66"
-	local bg_color = lerp_color(base_color, "#000000", contrast * 1.2)
+	local bg_editor = darkened(base_color, contrast)
+	local bg_gutter = darkened(base_color, contrast * 0.4)
+	local bg_selection = lerp_color(accent_color, base_color, 0.4)
+	local bg_current_line = lightened(bg_editor, 0.04)
+
 	local palette = {
-		bg = bg_color,
+		bg = bg_editor,
 		fg = font_color,
+
+		gutter_bg = bg_gutter,
+		line_nr = lerp_color(font_color, bg_editor, 0.5),
+		selection = bg_selection,
+		curr_line = bg_current_line,
+
 		symbol = "#abc9ff",
 		keyword = "#ff7085",
 		control_flow = "#ff8ccc",
 		base_type = "#42ffc2",
 		engine_type = "#8fffdb",
 		user_type = "#c7ffed",
-		comment = blend(font_color, bg_color, 0.5),
-		doc_comment = blend("#99b3cc", bg_color, 0.8),
+		comment = "#8796a5",
 		string = "#ffeda1",
 		number = "#a1ffe0",
-		function_col = "#57b3ff",
-		member_var = lerp_color("#57b3ff", mono_color, 0.6),
 
-		-- UI Elements
-		line_nr = blend(font_color, bg_color, 0.5),
-		caret = mono_color,
-		selection = blend(accent_color, bg_color, 0.4),
-		current_line = blend(mono_color, bg_color, 0.07),
-		search_result = blend(mono_color, bg_color, 0.07),
-		bracket_bad = error_color,
+		function_def = "#66e5ff",
+		function_call = "#57b3ff",
+		builtin_func = "#a3a3f5",
 
-		-- GDScript Specifics
-		gd_func_def = "#66e6ff",
-		gd_node_path = "#b8c47d",
+		member_var = "#bce0ff",
+		gd_node_path = "#baab76",
 		gd_annotation = "#ffb373",
+
+		error = "#ff6666",
+		warning = "#ffdd66",
 	}
 
 	vim.cmd("hi clear")
@@ -96,74 +108,67 @@ function M.setup(opts)
 
 	local hl = vim.api.nvim_set_hl
 
+	-- UI Highlights
 	hl(0, "Normal", { fg = palette.fg, bg = palette.bg })
-	hl(0, "LineNr", { fg = palette.line_nr })
-	hl(0, "CursorLine", { bg = palette.current_line })
-	hl(0, "CursorLineNr", { fg = palette.accent_color, bold = true })
+	hl(0, "NormalFloat", { fg = palette.fg, bg = darkened(palette.bg, 0.1) })
+	hl(0, "LineNr", { fg = palette.line_nr, bg = palette.gutter_bg })
+	hl(0, "CursorLine", { bg = palette.curr_line })
+	hl(0, "CursorLineNr", { fg = palette.accent, bold = true, bg = palette.gutter_bg })
 	hl(0, "Visual", { bg = palette.selection })
 	hl(0, "Search", { bg = palette.selection, fg = palette.fg })
-	hl(0, "CurSearch", { bg = palette.string, fg = palette.bg })
-	hl(0, "MatchParen", { bg = palette.bg, fg = palette.keyword, underline = true })
+	hl(0, "MatchParen", { bg = palette.bg, fg = palette.base_type, underline = true })
 
-	-- Syntax
+	-- Basic Syntax
 	hl(0, "Comment", { fg = palette.comment, italic = true })
 	hl(0, "String", { fg = palette.string })
 	hl(0, "Number", { fg = palette.number })
 	hl(0, "Float", { fg = palette.number })
 	hl(0, "Boolean", { fg = palette.keyword })
-
-	hl(0, "Constant", { fg = palette.member_var })
 	hl(0, "Identifier", { fg = palette.fg })
-	hl(0, "Function", { fg = palette.function_col })
-
+	hl(0, "Function", { fg = palette.function_call })
 	hl(0, "Statement", { fg = palette.keyword })
 	hl(0, "Conditional", { fg = palette.control_flow })
 	hl(0, "Repeat", { fg = palette.control_flow })
-	hl(0, "Label", { fg = palette.keyword })
 	hl(0, "Operator", { fg = palette.symbol })
 	hl(0, "Keyword", { fg = palette.keyword })
-	hl(0, "Exception", { fg = palette.control_flow })
-
-	hl(0, "PreProc", { fg = palette.gd_annotation })
-	hl(0, "Include", { fg = palette.control_flow })
-
 	hl(0, "Type", { fg = palette.base_type })
-	hl(0, "Structure", { fg = palette.base_type })
-	hl(0, "Typedef", { fg = palette.user_type })
+	hl(0, "Constant", { fg = palette.member_var })
 
-	hl(0, "Special", { fg = palette.symbol })
-	hl(0, "Error", { fg = error_color })
-	hl(0, "Todo", { fg = palette.bg, bg = palette.gd_annotation })
-
-	-- Treesitter Specifics
-	hl(0, "@variable", { fg = palette.fg })
-	hl(0, "@variable.member", { fg = palette.member_var })
-	hl(0, "@property", { fg = palette.member_var })
-
-	hl(0, "@function", { fg = palette.function_col })
-	hl(0, "@function.builtin", { fg = palette.gd_func_def })
-	hl(0, "@constructor", { fg = palette.base_type })
-
+	-- TreeSitter Specifics (Mapped to match GDScript Highlighting)
+	-- - Keywords
 	hl(0, "@keyword", { fg = palette.keyword })
 	hl(0, "@keyword.function", { fg = palette.keyword })
 	hl(0, "@keyword.return", { fg = palette.control_flow })
+	hl(0, "@keyword.conditional", { fg = palette.control_flow })
+	hl(0, "@keyword.repeat", { fg = palette.control_flow })
 
+	-- - Functions
+	hl(0, "@function", { fg = palette.function_def })
+	hl(0, "@function.call", { fg = palette.function_call })
+	hl(0, "@function.builtin", { fg = palette.builtin_func })
+
+	-- - Variables / Properties
+	hl(0, "@variable", { fg = palette.fg })
+	hl(0, "@variable.member", { fg = palette.member_var })
+	hl(0, "@property", { fg = palette.member_var })
+	hl(0, "@variable.parameter", { fg = palette.fg })
+
+	-- Types
 	hl(0, "@type", { fg = palette.user_type })
 	hl(0, "@type.builtin", { fg = palette.base_type })
+	hl(0, "@constructor", { fg = palette.base_type })
 
-	hl(0, "@string.special", { fg = palette.gd_node_path })
-	hl(0, "@constant.builtin", { fg = palette.base_type })
+	-- Literals
+	hl(0, "@string", { fg = palette.string })
+	hl(0, "@number", { fg = palette.number })
 
+	-- GDScript Specifics
+	hl(0, "@string.special.symbol", { fg = palette.gd_node_path })
 	hl(0, "@attribute", { fg = palette.gd_annotation })
 
-	-- Diff/Git
-	hl(0, "DiffAdd", { bg = blend("#00ff00", palette.bg, 0.15) })
-	hl(0, "DiffChange", { bg = blend("#ffff00", palette.bg, 0.15) })
-	hl(0, "DiffDelete", { bg = blend("#ff0000", palette.bg, 0.15) })
-
 	-- Diagnostics
-	hl(0, "DiagnosticError", { fg = error_color })
-	hl(0, "DiagnosticWarn", { fg = warning_color })
+	hl(0, "DiagnosticError", { fg = palette.error })
+	hl(0, "DiagnosticWarn", { fg = palette.warning })
 	hl(0, "DiagnosticInfo", { fg = palette.symbol })
 	hl(0, "DiagnosticHint", { fg = palette.comment })
 end
