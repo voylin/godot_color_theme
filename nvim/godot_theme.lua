@@ -146,6 +146,11 @@ function M.setup(opts)
 	hl(0, "@function", { fg = palette.function_def })
 	hl(0, "@function.call", { fg = palette.function_call })
 	hl(0, "@function.builtin", { fg = palette.builtin_func })
+	hl(0, "@function.method", { fg = palette.function_def })
+	hl(0, "@function.method.call", { fg = palette.function_call })
+
+	hl(0, "@method", { fg = palette.function_def })
+	hl(0, "@method.call", { fg = palette.function_call })
 
 	-- - Variables / Properties
 	hl(0, "@variable", { fg = palette.fg })
