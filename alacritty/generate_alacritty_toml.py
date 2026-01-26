@@ -64,17 +64,14 @@ def main():
         print("Invalid contrast number, using 0.3")
         contrast = 0.3
 
-    font_size_in = input("Enter font size [default: 17]: ").strip()
-    try: font_size = int(font_size_in) if font_size_in else 17
+    font_size_in = input("Enter font size [default: 18]: ").strip()
+    try: font_size = int(font_size_in) if font_size_in else 18
     except ValueError:
-        print("Invalid font size, using 17")
-        font_size = 17
+        print("Invalid font size, using 18")
+        font_size = 18
 
-    font_family_in = input("Enter Accent Color [default: hack]: ").strip()
-    font_family = font_family_in if font_family_in else "hack"
-
-    font_style_in = input("Enter font style [default: Medium]: ").strip()
-    font_style = font_style_in if font_style_in else "Medium"
+    font_family_in = input("Enter Accent Color [default: JetBrains Mono]: ").strip()
+    font_family = font_family_in if font_family_in else "JetBrains Mono"
 
     # Logic Translation (Same stuff which happens in Godot's EditorThemeManager.cpp)
     font_color = "#e0e0e0"
@@ -159,7 +156,6 @@ size = {font_size}
 
 [font.normal]
 family = "{font_family}"
-style = "{font_style}"
 """
 
     filename = "alacritty.toml"
