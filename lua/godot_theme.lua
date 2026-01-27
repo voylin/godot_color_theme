@@ -108,10 +108,12 @@ function M.setup(opts)
 	vim.g.colors_name = "godot"
 
 	local hl = vim.api.nvim_set_hl
+	local popup_bg = lightened(palette.bg, 0.15)
 
 	-- UI Highlights
 	hl(0, "Normal", { fg = palette.fg, bg = palette.bg })
-	hl(0, "NormalFloat", { fg = palette.fg, bg = darkened(palette.bg, 0.1) })
+	hl(0, "NormalFloat", { fg = palette.fg, bg = popup_bg })
+	hl(0, "FloatBorder", { fg = palette.gutter_bg, bg = popup_bg })
 	hl(0, "LineNr", { fg = palette.line_nr, bg = palette.gutter_bg })
 	hl(0, "CursorLine", { bg = palette.curr_line })
 	hl(0, "CursorLineNr", { fg = palette.accent, bold = true, bg = palette.gutter_bg })
@@ -152,10 +154,10 @@ function M.setup(opts)
 	hl(0, "markdownH6", { fg = palette.comment })
 
 	-- Autocompletion popup
-	hl(0, "Pmenu", { fg = palette.fg, bg = lightened(palette.bg, 0.06) })
-	hl(0, "PmenuSel", { fg = palette.fg, bg = palette.selection })
-	hl(0, "PmenuSbar", { bg = lightened(palette.bg, 0.1) })
-	hl(0, "PmenuThumb", { bg = lightened(palette.bg, 0.2) })
+	hl(0, "Pmenu", { fg = palette.fg, bg = popup_bg })
+	hl(0, "PmenuSel", { fg = palette.fg, bg = palette.selection, bold = true })
+	hl(0, "PmenuSbar", { bg = lightened(palette.bg, 0.05) })
+	hl(0, "PmenuThumb", { bg = lightened(palette.bg, 0.25) })
 
 	-- Autocompletion popup (Cmp)
 	hl(0, "CmpItemAbbr", { fg = palette.fg })
