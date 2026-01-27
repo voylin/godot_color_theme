@@ -1,6 +1,19 @@
 # Godot Color Theme - NeoVim
 
 ## Usage
+You can get this through Lazy: `{"voylin/godot_color_theme"}`
+Example config:
+```lua
+{
+  "voylin/godot_color_theme",
+  priority = 1000,
+  config = function()
+    require("godot_theme").setup()
+  end,
+}
+```
+
+### Manual
 1. Put the `godot_theme.lua` inside of your `nvim/lua` folder;
 2. From your your `init.lua` you paste following lines and adjust the defaults to your personal editor settings:
 ```lua
