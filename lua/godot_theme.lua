@@ -246,18 +246,19 @@ function M.setup(opts)
 	hl(0, "@markup.strikethrough", { strikethrough = true })
 
 	hl(0, "@markup.raw", { fg = palette.string })
-	hl(0, "@markup.raw.block", { fg = palette.string })
+	hl(0, "@markup.raw.block", { fg = palette.fg })
 
 	hl(0, "@markup.link", { fg = palette.function_call, underline = true })
-	hl(0, "@markup.link.label", { fg = palette.function_call })
 	hl(0, "@markup.link.url", { fg = palette.comment, underline = true })
+	hl(0, "@markup.link.label", { fg = palette.function_call })
 
 	hl(0, "@markup.list", { fg = palette.symbol })
 	hl(0, "@markup.list.checked", { fg = palette.base_type })
 	hl(0, "@markup.list.unchecked", { fg = palette.comment })
 
-	hl(0, "@markup.quote", { fg = palette.comment, italic = true })
 	hl(0, "@markup.hr", { fg = palette.symbol })
+	hl(0, "@markup.quote", { fg = palette.comment, italic = true })
+	hl(0, "@markup.heading", { fg = palette.function_def, bold = true })
 
 	-- Comments
 	hl(0, "@comment.todo", { fg = palette.warning, bold = true })
