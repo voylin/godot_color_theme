@@ -31,9 +31,9 @@ end
 local function lightened(hex, amount)
 	local r, g, b = hex_to_rgb(hex)
 	return rgb_to_hex(
-		r + (1.0 - r) * amount,
-		g + (1.0 - g) * amount,
-		b + (1.0 - b) * amount
+		r + (255 - r) * amount,
+		g + (255 - g) * amount,
+		b + (255 - b) * amount
 	)
 end
 
@@ -152,7 +152,7 @@ function M.setup(opts)
 	hl(0, "markdownH6", { fg = palette.comment })
 
 	-- Autocompletion popup
-	hl(0, "Pmenu", { fg = palette.fg, bg = lightened(palette.bg, 1) })
+	hl(0, "Pmenu", { fg = palette.fg, bg = lightened(palette.bg, 0.06) })
 	hl(0, "PmenuSel", { fg = palette.fg, bg = palette.selection })
 	hl(0, "PmenuSbar", { bg = lightened(palette.bg, 0.1) })
 	hl(0, "PmenuThumb", { bg = lightened(palette.bg, 0.2) })
@@ -160,8 +160,25 @@ function M.setup(opts)
 	-- Autocompletion popup (Cmp)
 	hl(0, "CmpItemAbbr", { fg = palette.fg })
 	hl(0, "CmpItemAbbrMatch", { fg = palette.accent, bold = true })
-	hl(0, "CmpItemKind", { fg = palette.symbol })
 	hl(0, "CmpItemMenu", { fg = palette.comment })
+
+	hl(0, "CmpItemKind", { fg = palette.symbol })
+	hl(0, "CmpItemKindUnit", { fg = palette.number })
+	hl(0, "CmpItemKindField", { fg = palette.member_var })
+	hl(0, "CmpItemKindValue", { fg = palette.string })
+	hl(0, "CmpItemKindClass", { fg = palette.user_type })
+	hl(0, "CmpItemKindMethod", { fg = palette.function_def })
+	hl(0, "CmpItemKindStruct", { fg = palette.user_type })
+	hl(0, "CmpItemKindSnippet", { fg = palette.gd_annotation })
+	hl(0, "CmpItemKindKeyword", { fg = palette.keyword })
+	hl(0, "CmpItemKindVariable", { fg = palette.member_var })
+	hl(0, "CmpItemKindProperty", { fg = palette.member_var })
+	hl(0, "CmpItemKindConstant", { fg = palette.member_var })
+	hl(0, "CmpItemKindFunction", { fg = palette.function_def })
+	hl(0, "CmpItemKindInterface", { fg = palette.user_type })
+	hl(0, "CmpItemKindEnumMember", { fg = palette.member_var })
+	hl(0, "CmpItemKindConstructor", { fg = palette.base_type })
+	hl(0, "CmpItemKindTypeParameter", { fg = palette.user_type })
 
 	-- TreeSitter Specifics (Mapped to match GDScript Highlighting)
 	-- - Keywords
