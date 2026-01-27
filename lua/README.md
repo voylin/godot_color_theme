@@ -1,5 +1,4 @@
 # Godot Color Theme - NeoVim
-
 ## Usage
 You can get this through Lazy: `{"voylin/godot_color_theme"}`
 Example config:
@@ -39,6 +38,20 @@ require('godot_theme').setup({
 
 ## Need help setting up NeoVim with Godot?
 [Watch this tutorial!](https://www.youtube.com/watch?v=9xTiuiomIy0)
+
+## Extra's
+If you want to have more of the Godot experience inside of NeoVim, consider adding this snippet:
+```lua
+vim.opt.list = true
+vim.opt.listchars = {
+	tab = '»  ',
+	leadmultispace = '≈   ',
+	trail = '·',
+	extends = '›',
+	precedes = '‹',
+	nbsp = '␣'
+}
+```
 
 ## Support this project, and all my other projects!
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/R6R4M1UM6)
