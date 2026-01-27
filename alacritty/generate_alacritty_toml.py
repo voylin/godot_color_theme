@@ -49,7 +49,7 @@ def main():
 
     # Getting User Input
     is_modern = input("Do you want to use the modern 4.6+ theme? (Yes, No): ").strip().lower() not in ["n", "no"]
-    
+
     default_base_color = DEFAULT_MODERN_BASE_COLOR if is_modern else DEFAULT_CLASSIC_BASE_COLOR
     base_color_in = input(f"Enter base color [default: {default_base_color}]: ").strip()
     base_color = base_color_in if base_color_in else default_base_color

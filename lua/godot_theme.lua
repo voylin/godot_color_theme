@@ -151,6 +151,18 @@ function M.setup(opts)
 	hl(0, "markdownH5", { fg = palette.symbol })
 	hl(0, "markdownH6", { fg = palette.comment })
 
+	-- Autocompletion popup
+	hl(0, "Pmenu", { fg = palette.fg, bg = lightened(palette.bg, 1) })
+	hl(0, "PmenuSel", { fg = palette.fg, bg = palette.selection })
+	hl(0, "PmenuSbar", { bg = lightened(palette.bg, 0.1) })
+	hl(0, "PmenuThumb", { bg = lightened(palette.bg, 0.2) })
+
+	-- Autocompletion popup (Cmp)
+	hl(0, "CmpItemAbbr", { fg = palette.fg })
+	hl(0, "CmpItemAbbrMatch", { fg = palette.accent, bold = true })
+	hl(0, "CmpItemKind", { fg = palette.symbol })
+	hl(0, "CmpItemMenu", { fg = palette.comment })
+
 	-- TreeSitter Specifics (Mapped to match GDScript Highlighting)
 	-- - Keywords
 	hl(0, "@keyword", { fg = palette.keyword })
